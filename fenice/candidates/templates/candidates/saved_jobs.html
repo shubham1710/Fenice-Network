@@ -1,0 +1,34 @@
+{% extends "users/layout.html" %} {% load static %} {% block content %}
+<br /><br />
+<div>
+  <h3 class="text-center"><b>Saved Jobs</b></h3>
+  <hr my-2 />
+  <div class="row">
+    {% for job in jobs %}
+    <div class="col-md-6">
+      <div class="card card-signin my-2">
+        <span class="ml-3 mt-3">
+          <a href="{% url 'job-detail' job.job.slug %}"
+            ><h4 class="text-dark">
+              <b>{{job.job.title}} ({{job.job.job_type}})</b>
+            </h4></a
+          >
+          <p style="font-size: 17px">
+            {{job.job.company}}<br />{{job.job.location}}
+          </p>
+          <p style="font-size: 15px">
+            {{job.job.description|truncatewords:30}} -
+            <a href="{% url 'job-detail' job.job.slug %}">Read More</a>
+          </p>
+        </span>
+        <div class="card-footer">
+          <span style="font-size: 14px"
+            >Posted on {{job.job.date_posted|date:"F d, Y"}}</span
+          >
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}

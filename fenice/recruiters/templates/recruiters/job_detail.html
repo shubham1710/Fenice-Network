@@ -1,0 +1,58 @@
+{% extends "users/layout.html" %} {% load static %} {% block content %}
+<br /><br />
+<div class="container">
+  {% if request.user == job.recruiter %}
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card card-signin my-5">
+        <div class="card-body">
+          <h3>
+            <b>{{job.title}} ({{job.job_type}})</b>
+          </h3>
+          <p style="font-size: 18px">{{job.company}}, {{job.location}}</p>
+          {% if not job.link %}
+          <a
+            class="btn btn-info btn-lg mr-2"
+            href="{% url 'applicant-list' job.slug %}"
+            ><b>Applicants List</b></a
+          >
+          <a
+            class="btn btn-success btn-lg mr-2"
+            href="{% url 'selected-list' job.slug %}"
+            ><b>Selected List</b></a
+          >
+          {% endif %}
+          <a
+            class="btn btn-warning btn-lg mr-2"
+            href="{% url 'edit-job-post' job.slug %}"
+            ><b>Edit Job Post</b></a
+          >
+          <a
+            class="btn btn-danger btn-lg"
+            href="{% url 'job-candidate-search' job.slug %}"
+            ><b>Search Relevant Candidates</b></a
+          >
+          <hr my-2 />
+          <span style="font-size: 18px"><b>Job Description</b></span>
+          <p style="white-space: pre-wrap; font-size: 16px">
+            {{ job.description }}
+          </p>
+          <hr my-2 />
+          <p><b class="mr-2">Skills Required:</b>{{job.skills_req}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <div class="row">
+    <div class="col-sm-12 col-md-10 col-lg-8 mx-auto">
+      <div class="card card-signin my-5">
+        <div class="card-body">
+          <h3 class="text-center">You do not have access to this page!</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endblock content %}
