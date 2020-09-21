@@ -1,0 +1,85 @@
+{% extends "users/layout.html" %} {% load static %} {% block content %}
+<br /><br />
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card card-signin my-5">
+        <div class="card-body">
+          <h3>
+            <b>{{job.title}} ({{job.job_type}})</b>
+          </h3>
+          <p style="font-size: 18px">{{job.company}}, {{job.location}}</p>
+
+          {% if job.link %}
+          <a class="btn btn-warning btn-lg" href="{{job.link}}"
+            ><b>Apply On Company's Website</b></a
+          >
+          {% else %} {% if not apply_button %} {% if profile.resume %}
+          <a
+            class="btn btn-warning btn-lg"
+            href="{% url 'apply-job' job.slug %}"
+            ><b>Apply Now</b></a
+          >
+          {%else %}
+          <a class="btn btn-danger btn-lg" href="{% url 'edit-profile' %}"
+            ><b>Add Resume to apply!</b></a
+          >
+          {%endif%} {% else %}
+          <a class="btn btn-success btn-lg" href="{% url 'applied-jobs' %}"
+            ><b>Applied!</b></a
+          >
+          {% endif %} {%endif%} {% if not save_button %}
+          <a
+            class="btn btn-primary btn-lg ml-2"
+            href="{% url 'save-job' job.slug %}"
+            ><b>Save</b></a
+          >
+          {% else %}
+          <a
+            class="btn btn-danger btn-lg ml-2"
+            href="{% url 'remove-job' job.slug %}"
+            ><b>Remove</b></a
+          >
+          {% endif %}
+          <hr my-2 />
+          <span style="font-size: 18px"><b>Job Description</b></span>
+          <p style="white-space: pre-wrap; font-size: 16px">
+            {{ job.description }}
+          </p>
+          <hr my-2 />
+          <p><b class="mr-2">Skills Required:</b>{{job.skills_req}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr my-1 />
+  <h3 class="text-center">Similar Jobs</h3>
+  <div class="row">
+    {% for rel_job in relevant_jobs %}
+    <div class="col-md-6">
+      <div class="card card-signin my-2">
+        <span class="ml-3 mt-3">
+          <a href="{% url 'job-detail' rel_job.slug %}"
+            ><h4 class="text-dark">
+              <b>{{rel_job.title}} ({{rel_job.job_type}})</b>
+            </h4></a
+          >
+          <p style="font-size: 17px">
+            {{rel_job.company}}<br />{{rel_job.location}}
+          </p>
+          <p style="font-size: 15px">
+            {{rel_job.description|truncatewords:30}} -
+            <a href="{% url 'job-detail' rel_job.slug %}">Read More</a>
+          </p>
+        </span>
+        <div class="card-footer">
+          <span style="font-size: 14px"
+            >Posted on {{rel_job.date_posted|date:"F d, Y"}}</span
+          >
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}

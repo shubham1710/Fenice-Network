@@ -1,0 +1,67 @@
+{% extends "users/layout.html" %} {% load static %} {% block content %}
+<br />
+<div>
+  <h3 class="text-center">
+    <b>Search Candidates</b>
+  </h3>
+
+  {% if profiles %}
+  <div class="row">
+    {% for profile in profiles %}
+    <div class="col-md-4">
+      <div class="card card-signin my-5">
+        <span class="ml-3 mt-3">
+          <a href="{% url 'profile-view' profile.slug %}">
+            {% if profile.full_name %}
+            <h4 class="text-dark">
+              <b>{{profile.full_name}}</b>
+            </h4>
+            {% else %}
+            <h4 class="text-dark">
+              <b>{{profile.user.username}}</b>
+            </h4>
+            {% endif %}
+          </a>
+          <p style="font-size: 17px">
+            {{profile.user.email}}<br />{{profile.country.name}}
+          </p>
+        </span>
+        <div class="card-footer">
+          {% if profile.resume %}
+          <a href="{{ profile.resume.url }}">Click to view resume</a>
+          {% else %}
+          <p>No resume available.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <br />
+  <div class="pagination">
+    <span class="step-links">
+      {% if profiles.has_previous %}
+      <a class="btn btn-info" href="?page=1">&laquo; First</a>
+      <a class="btn btn-danger" href="?page={{ profiles.previous_page_number }}"
+        >Prev</a
+      >
+      {% endif %}
+      <span class="current">
+        Page {{ profiles.number }} of {{ profiles.paginator.num_pages }}.
+      </span>
+      {% if profiles.has_next %}
+      <a class="btn btn-success" href="?page={{ profiles.next_page_number }}"
+        >Next</a
+      >
+      <a class="btn btn-primary" href="?page={{ profiles.paginator.num_pages }}"
+        >Last &raquo;</a
+      >
+      {% endif %}
+    </span>
+  </div>
+  {% else %}
+  <p class="text-center">No candidates found!</p>
+  <br />
+  {% endif %}
+</div>
+{% endblock content %}
