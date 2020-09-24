@@ -151,6 +151,8 @@ def intelligent_search(request):
             common.append(len(common_skills))
             job_skills.append(len(skills))
     objects = zip(relevant_jobs, common, job_skills)
+    objects = sorted(objects, key=lambda t: t[1]/t[2], reverse=True)
+    objects = objects[:100]
     context = {
         'intel_page': "active",
         'jobs': objects,

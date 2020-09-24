@@ -27,6 +27,9 @@ class Job(models.Model):
     slug = AutoSlugField(populate_from='title', unique=True, null=True)
     date_posted = models.DateTimeField(default=timezone.now)
 
+    def __str__(self):
+        return self.title
+
 
 class Applicants(models.Model):
     job = models.ForeignKey(
@@ -35,6 +38,9 @@ class Applicants(models.Model):
         User, related_name='applied', on_delete=models.CASCADE)
     date_posted = models.DateTimeField(default=timezone.now)
 
+    def __str__(self):
+        return self.applicant
+
 
 class Selected(models.Model):
     job = models.ForeignKey(
@@ -42,3 +48,6 @@ class Selected(models.Model):
     applicant = models.ForeignKey(
         User, related_name='select_applicant', on_delete=models.CASCADE)
     date_posted = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.applicant

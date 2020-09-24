@@ -22,10 +22,6 @@ def terms(request):
     return render(request, 'users/terms.html')
 
 
-def faqs(request):
-    return render(request, 'users/faqs.html')
-
-
 def pricing(request):
     context = {
         'rec_navbar': 1,

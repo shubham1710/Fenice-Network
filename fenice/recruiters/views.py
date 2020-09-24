@@ -53,7 +53,6 @@ def edit_job(request, slug):
     else:
         form = NewJobForm(instance=job)
     context = {
-        'add_job_page': "active",
         'form': form,
         'rec_navbar': 1,
         'job': job,
@@ -73,7 +72,7 @@ def job_detail(request, slug):
 
 @login_required
 def all_jobs(request):
-    jobs = Job.objects.filter(recruiter=request.user)
+    jobs = Job.objects.filter(recruiter=request.user).order_by('-date_posted')
     paginator = Paginator(jobs, 20)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -149,6 +148,8 @@ def job_candidate_search(request, slug):
             relevant_candidates.append(applicant)
             common.append(len(common_skills))
     objects = zip(relevant_candidates, common)
+    objects = sorted(objects, key=lambda t: t[1], reverse=True)
+    objects = objects[:100]
     context = {
         'rec_navbar': 1,
         'job': job,

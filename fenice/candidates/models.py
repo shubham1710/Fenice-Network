@@ -32,6 +32,9 @@ class Profile(models.Model):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
+    def __str__(self):
+        return self.user.username
+
 
 class Skill(models.Model):
     skill = models.CharField(max_length=200)
@@ -46,6 +49,9 @@ class SavedJobs(models.Model):
         User, related_name='saved', on_delete=models.CASCADE)
     date_posted = models.DateTimeField(default=timezone.now)
 
+    def __str__(self):
+        return self.job.title
+
 
 class AppliedJobs(models.Model):
     job = models.ForeignKey(
@@ -53,3 +59,6 @@ class AppliedJobs(models.Model):
     user = models.ForeignKey(
         User, related_name='applied_user', on_delete=models.CASCADE)
     date_posted = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.job.title
