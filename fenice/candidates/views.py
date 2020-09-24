@@ -216,10 +216,7 @@ def profile_view(request, slug):
 
 
 def candidate_details(request):
-    context = {
-
-    }
-    return render(request, 'candidates/details.html', context)
+    return render(request, 'candidates/details.html')
 
 
 @login_required

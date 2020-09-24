@@ -92,7 +92,32 @@ def search_candidates(request):
     for profile in profile_list:
         if profile.resume and profile.user != request.user:
             profiles.append(profile)
-    paginator = Paginator(profiles, 20)
+
+    rec1 = request.GET.get('r')
+    rec2 = request.GET.get('s')
+
+    if rec1 == None:
+        li1 = Profile.objects.all()
+    else:
+        li1 = Profile.objects.filter(location__icontains=rec1)
+
+    if rec2 == None:
+        li2 = Profile.objects.all()
+    else:
+        li2 = Profile.objects.filter(looking_for__icontains=rec2)
+
+    final = []
+    profiles_final = []
+
+    for i in li1:
+        if i in li2:
+            final.append(i)
+
+    for i in final:
+        if i in profiles:
+            profiles_final.append(i)
+
+    paginator = Paginator(profiles_final, 20)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context = {
