@@ -8,10 +8,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ')f#s-pzaa09l8)=5pt1pw_vsi=*@o6hfng@5*u8)@xqjzkx6gk'
+SECRET_KEY = os.environ.get('FENICE_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')
 
 ALLOWED_HOSTS = []
 
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.linkedin_oauth2',
     'allauth.socialaccount.providers.github',
     'django_cleanup.apps.CleanupConfig',
+    'pwa',
 ]
 
 MIDDLEWARE = [
@@ -170,9 +171,9 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 SOCIALACCOUNT_QUERY_EMAIL = True
 
-# DEFAULT_FILE_STORAGE = 'django_gcloud_storage.DjangoGCloudStorage'
+DEFAULT_FILE_STORAGE = 'django_gcloud_storage.DjangoGCloudStorage'
 
-# GCS_PROJECT = os.environ.get('GCS_PROJECT_FENICE')
-# GCS_BUCKET = os.environ.get('GCS_BUCKET_FENICE')
-# GCS_CREDENTIALS_FILE_PATH = os.path.join(BASE_DIR, "my-key.json")
-# GCS_USE_UNSIGNED_URLS = True
+GCS_PROJECT = os.environ.get('GCS_PROJECT_FENICE')
+GCS_BUCKET = os.environ.get('GCS_BUCKET_FENICE')
+GCS_CREDENTIALS_FILE_PATH = os.path.join(BASE_DIR, "my-key.json")
+GCS_USE_UNSIGNED_URLS = True

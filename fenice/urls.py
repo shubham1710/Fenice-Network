@@ -16,6 +16,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('', include('candidates.urls')),
     path('hiring/', include('recruiters.urls')),
+    path('', include('pwa.urls')),
 ]
 
 if settings.DEBUG:
