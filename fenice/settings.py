@@ -1,7 +1,7 @@
 from pathlib import Path
 import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.github',
     'django_cleanup.apps.CleanupConfig',
     'pwa',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -84,7 +85,7 @@ WSGI_APPLICATION = 'fenice.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -125,11 +126,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_URL = '/static/'
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
@@ -171,9 +167,21 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 SOCIALACCOUNT_QUERY_EMAIL = True
 
-DEFAULT_FILE_STORAGE = 'django_gcloud_storage.DjangoGCloudStorage'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-GCS_PROJECT = os.environ.get('GCS_PROJECT_FENICE')
-GCS_BUCKET = os.environ.get('GCS_BUCKET_FENICE')
-GCS_CREDENTIALS_FILE_PATH = os.path.join(BASE_DIR, "my-key.json")
-GCS_USE_UNSIGNED_URLS = True
+AWS_ACCESS_KEY_ID = 'ZTNHYNNY34JSKKBHBL7Z'
+AWS_SECRET_ACCESS_KEY = 'WOHo2DWZ3e+q/waXS3he3WP29dpU9/IfkseTQVzmirU'
+AWS_S3_SIGNATURE_VERSION = 's3v4'
+AWS_STORAGE_BUCKET_NAME = 'fenice'
+AWS_S3_ENDPOINT_URL = 'https://fenice.ams3.digitaloceanspaces.com'
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+
+AWS_DEFAULT_ACL = 'public-read'
+
+STATIC_URL = '{}/{}/'.format(AWS_S3_ENDPOINT_URL, 'static')
+STATIC_ROOT = 'static/'
+
+MEDIA_URL = '{}/{}/'.format(AWS_S3_ENDPOINT_URL, 'media')
+MEDIA_ROOT = 'media/'
