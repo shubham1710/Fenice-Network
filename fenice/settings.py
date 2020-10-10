@@ -81,13 +81,24 @@ WSGI_APPLICATION = 'fenice.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+if (os.environ.get('DJANGO_DEV') == 'True'):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'defaultdb',
+            'USER': 'doadmin',
+            'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
+            'HOST': 'fenice-database-do-user-8082982-0.b.db.ondigitalocean.com',
+            'PORT': '25060',
+        }
+    }
 
 
 # Password validation

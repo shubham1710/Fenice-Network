@@ -135,7 +135,7 @@ def intelligent_search(request):
     my_skills = []
     for i in my_skill_query:
         my_skills.append(i.skill.lower())
-    if profile.looking_for:
+    if profile:
         jobs = Job.objects.filter(
             job_type=profile.looking_for).order_by('-date_posted')
     else:
