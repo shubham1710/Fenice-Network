@@ -18,6 +18,7 @@ django-pwa = "*"
 django-storages = "*"
 boto3 = "*"
 psycopg2 = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.7"
