@@ -14,8 +14,10 @@ SECRET_KEY = os.environ.get('FENICE_SECRET_KEY')
 DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')
 
 ALLOWED_HOSTS = [
+    'https://www.fenice.network/',
+    'https://fenice.network/',
     'https://fenice-network-h8usp.ondigitalocean.app/',
-    'localhost:5000',
+    'localhost',
 ]
 
 
