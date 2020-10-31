@@ -14,14 +14,7 @@ SECRET_KEY = os.environ.get('FENICE_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')
 
-ALLOWED_HOSTS = [
-    'https://www.fenice.network/',
-    'https://fenice.network/',
-    'http://www.fenice.network/',
-    'http://fenice.network/',
-    'https://fenice-network-h8usp.ondigitalocean.app/',
-    'localhost',
-]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -89,6 +82,7 @@ WSGI_APPLICATION = 'fenice.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+# Development database
 if (os.environ.get('DJANGO_DEV') == 'True'):
     DATABASES = {
         'default': {
@@ -96,6 +90,7 @@ if (os.environ.get('DJANGO_DEV') == 'True'):
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
     }
+# Production database
 else:
     DATABASES = {
         'default': {
@@ -186,6 +181,7 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 SOCIALACCOUNT_QUERY_EMAIL = True
 
+# Digital Ocean Spaces
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 AWS_ACCESS_KEY_ID = os.environ.get('FENICE_AWS_ID')
