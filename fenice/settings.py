@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.linkedin_oauth2',
     'allauth.socialaccount.providers.github',
     'django_cleanup.apps.CleanupConfig',
-    'pwa',
     'storages',
 ]
 
@@ -201,7 +200,3 @@ STATIC_ROOT = 'static/'
 MEDIA_URL = '{}/{}/'.format(AWS_S3_ENDPOINT_URL, 'media')
 MEDIA_ROOT = 'media/'
 
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
