@@ -86,27 +86,27 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'fenice.wsgi.application'
 
-
+SITE_ID = 2
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-if (os.environ.get('DJANGO_DEV') == 'True'):
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
+# if (os.environ.get('DJANGO_DEV') == 'Tru'):
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'defaultdb',
-            'USER': 'doadmin',
-            'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
-            'HOST': 'fenice-database-do-user-8082982-0.b.db.ondigitalocean.com',
-            'PORT': '25060',
-        }
-    }
+}
+# else:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#             'NAME': 'defaultdb',
+#             'USER': 'doadmin',
+#             'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
+#             'HOST': 'fenice-database-do-user-8082982-0.b.db.ondigitalocean.com',
+#             'PORT': '25060',
+#         }
+#     }
 
 
 # Password validation
@@ -204,8 +204,3 @@ STATIC_ROOT = 'static/'
 
 MEDIA_URL = '{}/{}/'.format(AWS_S3_ENDPOINT_URL, 'media')
 MEDIA_ROOT = 'media/'
-
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
