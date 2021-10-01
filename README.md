@@ -1,5 +1,5 @@
 # Fenice-Network
-A website which helps job seekers and recruiters come together and hire easily.
+A website which helps job seekers and recruiters come together and hire easily built using Django Framework with social login.
 
 Features for recruiters :-
 1) Post job posts.
