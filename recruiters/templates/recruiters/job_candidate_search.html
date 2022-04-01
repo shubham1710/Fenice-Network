@@ -1,0 +1,51 @@
+{% extends "users/layout.html" %} {% load static %} {% block content %}
+<br />
+<div>
+  <h3 class="text-center">
+    <b>Most Relevant Candidates for {{job.title}} (Beta)</b>
+  </h3>
+
+  {% if relevant %}
+  <div class="row">
+    {% for profile, common in objects %}
+    <div class="col-md-6">
+      <div class="card card-signin my-2">
+        <span class="ml-3 mt-3">
+          <a href="{% url 'profile-view' profile.slug %}">
+            {% if profile.full_name %}
+            <h4 class="text-dark">
+              <b>{{profile.full_name}}</b>
+            </h4>
+            {% else %}
+            <h4 class="text-dark">
+              <b>{{profile.user.username}}</b>
+            </h4>
+            {% endif %}
+          </a>
+          <p style="font-size: 17px">
+            {{profile.user.email}}<br />
+            {% if profile.location %} {{profile.location}} {% else %}
+            {{profile.country.name}} {% endif %}
+          </p>
+        </span>
+        <div class="card-footer">
+          <span style="font-size: 18px"
+            >This candidate has <b class="text-success">{{ common }} </b>out of
+            <b class="text-danger">{{ job_skills }}</b> skills required for this
+            job.</span
+          >
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p class="text-center">
+    No relevant candidates found this job! Please check if your
+    <a href="{% url 'add-job-detail' job.slug %}">job data</a> is complete and
+    is following the instructions.
+  </p>
+  <br />
+  {% endif %}
+</div>
+{% endblock content %}

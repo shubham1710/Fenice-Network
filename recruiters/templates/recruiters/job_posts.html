@@ -1,0 +1,58 @@
+{% extends "users/layout.html" %} {% load static %} {% block content %}
+<br /><br />
+<div>
+  <h3 class="text-center"><b>Your Job Posts</b></h3>
+  <hr my-2 />
+  {% if not jobs %}
+  <h4 class="text-center">
+    Please <a href="{% url 'add-job' %}">add a job</a> first!
+  </h4>
+  {% else %}
+  <div class="row">
+    {% for job in jobs %}
+    <div class="col-md-6">
+      <div class="card card-signin my-2">
+        <span class="ml-3 mt-3">
+          <a href="{% url 'add-job-detail' job.slug %}"
+            ><h4 class="text-dark">
+              <b>{{job.title}} ({{job.job_type}})</b>
+            </h4></a
+          >
+          <p style="font-size: 17px">{{job.company}}<br />{{job.location}}</p>
+          <p style="font-size: 15px">
+            {{job.description|truncatewords:30}} -
+            <a href="{% url 'add-job-detail' job.slug %}">Read More</a>
+          </p>
+        </span>
+        <div class="card-footer">
+          <span style="font-size: 14px"
+            >Posted on {{job.date_posted|date:"F d, Y"}}</span
+          >
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+<br />
+<div class="pagination">
+  <span class="step-links">
+    {% if jobs.has_previous %}
+    <a class="btn btn-info" href="?page=1">&laquo; First</a>
+    <a class="btn btn-danger" href="?page={{ jobs.previous_page_number }}"
+      >Prev</a
+    >
+    {% endif %}
+    <span class="current">
+      Page {{ jobs.number }} of {{ jobs.paginator.num_pages }}.
+    </span>
+    {% if jobs.has_next %}
+    <a class="btn btn-success" href="?page={{ jobs.next_page_number }}">Next</a>
+    <a class="btn btn-primary" href="?page={{ jobs.paginator.num_pages }}"
+      >Last &raquo;</a
+    >
+    {% endif %}
+  </span>
+  {% endif %}
+</div>
+{% endblock content %}

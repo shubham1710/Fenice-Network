@@ -1,0 +1,107 @@
+{% extends "users/layout.html" %} {% load static %} {% block content %}
+<br />
+<div>
+  <h3 class="text-center">
+    <b>Search Candidates</b>
+  </h3>
+  <form
+    class="form-signin mt-4"
+    action="{% url 'search-candidates' %}"
+    method="get"
+  >
+    <div class="row">
+      <div class="col-md-6">
+        <input
+          name="r"
+          type="text"
+          class="form-control"
+          placeholder="Enter Location of Choice"
+        /><br />
+      </div>
+      <div class="col-md-6">
+        <input
+          name="s"
+          type="text"
+          class="form-control"
+          placeholder="For Job Type (Full Time, Intern etc.)"
+        /><br />
+      </div>
+    </div>
+    <div class="form-group">
+      <button class="btn btn-lg btn-primary btn-block" type="submit">
+        Apply Filters
+      </button>
+    </div>
+  </form>
+  {% if profiles %}
+  <div class="row">
+    {% for profile in profiles %}
+    <div class="col-md-4">
+      <div class="card card-signin my-2">
+        <span class="ml-3 mt-3">
+          <a href="{% url 'profile-view' profile.slug %}">
+            {% if profile.full_name %}
+            <h4 class="text-dark">
+              <b>{{profile.full_name}}</b>
+            </h4>
+            {% else %}
+            <h4 class="text-dark">
+              <b>{{profile.user.username}}</b>
+            </h4>
+            {% endif %}
+          </a>
+          <p style="font-size: 17px">
+            {{profile.user.email}}<br />{% if profile.location %}
+            {{profile.location}} {% else %} {{profile.country.name}} {% endif %}
+          </p>
+        </span>
+        <div class="card-footer">
+          {% if profile.resume %}
+          <a href="{{ profile.resume.url }}">Click to view resume</a>
+          {% else %}
+          <p>No resume available.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <br />
+  <div class="pagination">
+    <span class="step-links">
+      {% if profiles.has_previous %}
+      <a
+        class="btn btn-info"
+        href="?page=1{% if request.GET.r %}&p={{ request.GET.r }}{% endif %}{% if request.GET.s %}&q={{ request.GET.s }}{% endif %}"
+        >&laquo; First</a
+      >
+      <a
+        class="btn btn-danger"
+        href="?page={{ profiles.previous_page_number }}{% if request.GET.r %}&p={{ request.GET.r }}{% endif %}{% if request.GET.s %}&q={{ request.GET.s }}{% endif %}"
+        >Prev</a
+      >
+      {% endif %}
+      <span class="current">
+        Page {{ profiles.number }} of {{ profiles.paginator.num_pages }}.
+      </span>
+      {% if profiles.has_next %}
+      <a
+        class="btn btn-success"
+        href="?page={{ profiles.next_page_number }}{% if request.GET.r %}&p={{ request.GET.r }}{% endif %}{% if request.GET.s %}&q={{ request.GET.s }}{% endif %}"
+        >Next</a
+      >
+      <a
+        class="btn btn-primary"
+        href="?page={{ profiles.paginator.num_pages }}{% if request.GET.r %}&p={{ request.GET.r }}{% endif %}{% if request.GET.s %}&q={{ request.GET.s }}{% endif %}"
+        >Last &raquo;</a
+      >
+      {% endif %}
+    </span>
+  </div>
+
+  {% else %}
+  <p class="text-center">No candidates found!</p>
+  <br />
+  {% endif %}
+</div>
+{% endblock content %}

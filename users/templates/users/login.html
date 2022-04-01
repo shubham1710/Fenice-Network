@@ -1,0 +1,50 @@
+{% extends "users/layout.html" %} {% load socialaccount %} {% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-10 col-md-10 col-lg-7 mx-auto">
+      <div class="card card-signin my-5">
+        <div class="card-body">
+          <h3 class="text-center"><b>Sign In</b></h3>
+          <br />
+          <form class="form-signin">
+            <div class="form-group">
+              <a
+                class="btn btn-outline-secondary btn-block"
+                href="{% provider_login_url 'google' %}"
+                ><img
+                  src="https://dl.dropboxusercontent.com/s/es5sylabbcaobjr/google.png?dl=0"
+                  alt="Google"
+                  height="30"
+                  class="d-inline-block mr-2"
+                />Sign In With Google</a
+              >
+              <br />
+              <a
+                class="btn btn-outline-secondary btn-block"
+                href="{% provider_login_url 'github' %}"
+                ><img
+                  src="https://dl.dropboxusercontent.com/s/2929dbjh0nvgbgn/github.png?dl=0"
+                  alt="Github"
+                  height="30"
+                  class="d-inline-block mr-2"
+                />Sign In With Github</a
+              >
+              <br />
+              <a
+                class="btn btn-outline-dark btn-block"
+                href="{% provider_login_url 'linkedin_oauth2' %}"
+                ><img
+                  src="https://dl.dropboxusercontent.com/s/yz30dq16gqmjbv1/linkedin.png?dl=0"
+                  alt="Linkedin"
+                  height="30"
+                  class="d-inline-block mr-2"
+                />Sign In With LinkedIn</a
+              >
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

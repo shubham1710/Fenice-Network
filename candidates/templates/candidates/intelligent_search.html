@@ -1,0 +1,37 @@
+{%extends "users/layout.html" %} {% load static %} {% block content %}
+<br /><br />
+<div>
+<h3 class="text-center"><b>Most Relevant Jobs for You (Beta)</b></h3><br>
+{%if counter %}
+  <div class="row">
+    {% for job,common, job_skill in jobs %}
+    <div class="col-md-6">
+      <div class="card card-signin my-2">
+        <span class="ml-3 mt-3">
+          <a href="{% url 'job-detail' job.slug %}"
+            ><h4 class="text-dark">
+              <b>{{job.title}} ({{job.job_type}})</b>
+            </h4></a
+          >
+          <p style="font-size: 17px">{{job.company}}<br />{{job.location}}</p>
+          <p style="font-size: 15px">
+            {{job.description|truncatewords:30}} -
+            <a href="{% url 'job-detail' job.slug %}">Read More</a>
+          </p>
+        </span>
+        <div class="card-footer">
+          <span style="font-size: 18px"
+            >You have <b class="text-success">{{ common }} </b>out of <b class="text-danger">{{ job_skill }}</b> skills required for this job.</span
+          >
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+<br />
+{% else %}
+<p class="text-center">No relevant jobs for you now! Please check if your <a href="{% url 'my-profile' %}">profile</a> is complete.</p><br>
+{% endif %}
+</div>
+{% endblock content %}

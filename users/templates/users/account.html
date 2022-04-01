@@ -1,0 +1,61 @@
+{% extends "users/layout.html" %} {% load socialaccount %} {% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-10 col-md-10 col-lg-7 mx-auto">
+      <div class="card card-signin my-5">
+        <div class="card-body">
+          <h3 class="text-center"><b>Account Details</b></h3>
+          <br />
+          <form class="form-signin">
+            <div class="form-group">
+              <p class="text-center">Username: {{user.username}}</p>
+              <p class="text-center">Email: {{user.email}}</p>
+              <hr class="my-4" />
+              <h5 class="text-center">Link Your Social Media Accounts</h5>
+              <p class="text-center">
+                <small style="font-size: 12px"
+                  >(If already connected, there is no need to do it
+                  again)</small
+                >
+              </p>
+              <hr class="my-4" />
+              <a
+                class="btn btn-outline-secondary btn-block"
+                href="{% provider_login_url 'google' process='connect' %}"
+                ><img
+                  src="https://dl.dropboxusercontent.com/s/es5sylabbcaobjr/google.png?dl=0"
+                  alt="Google"
+                  height="35"
+                  class="d-inline- mr-2"
+                />Connect Google</a
+              >
+              <br />
+              <a
+                class="btn btn-outline-warning btn-block"
+                href="{% provider_login_url 'github' process='connect' %}"
+                ><img
+                  src="https://dl.dropboxusercontent.com/s/2929dbjh0nvgbgn/github.png?dl=0"
+                  alt="Github"
+                  height="35"
+                  class="d-inline-block mr-2"
+                />Connect Github</a
+              >
+              <br />
+              <a
+                class="btn btn-outline-dark btn-block"
+                href="{% provider_login_url 'linkedin_oauth2' process='connect' %}"
+                ><img
+                  src="https://dl.dropboxusercontent.com/s/yz30dq16gqmjbv1/linkedin.png?dl=0"
+                  alt="Linkedin"
+                  height="35"
+                  class="d-inline-block mr-2"
+                />Connect LinkedIn</a
+              >
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "users/layout.html" %} {% load static %} {% load crispy_forms_tags %}
+{% block content %} <br /><br />
+<div class="container">
+  <div class="row">
+    <div class="col-sm-10 col-md-10 col-lg-8 mx-auto">
+      <div class="card card-signin my-5">
+        <div class="card-body">
+          <h3 class="text-center">
+            <b>Update Your Profile</b>
+          </h3>
+          <form class="form-signin" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset class="form-group">
+              <br />
+              {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+              <button class="btn btn-lg btn-primary btn-block" type="submit">
+                Update</button
+              ><br /><br />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
