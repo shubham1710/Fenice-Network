@@ -1,0 +1,110 @@
+{% extends "users/layout.html" %} {% load static %} {% block content %}
+<br /><br />
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-10 col-lg-8 mx-auto">
+      <h2><b>Search Jobs</b></h2>
+      <form
+        class="form-signin mt-4"
+        action="{% url 'job-search-list' %}"
+        method="get"
+      >
+        <input
+          name="p"
+          type="text"
+          class="form-control"
+          placeholder="Enter Job Title, Skills, Type or Company"
+        /><br />
+        <input
+          name="q"
+          type="text"
+          class="form-control"
+          placeholder="Enter Job Location"
+        />
+        <br />
+        <div class="form-group">
+          <button class="btn btn-lg btn-primary btn-block" type="submit">
+            Search Jobs
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="container mt-3">
+    <div class="row">
+      <div class="col-sm-12 col-md-10 col-lg-8 mx-auto">
+        {% if user.is_authenticcated %}
+        <p class="text-center">
+          <b
+            >Recruiters/Employers -
+            <a href="{% url 'add-job' %}">Post a Job</a></b
+          >
+        </p>
+        {% else %}
+        <p class="text-center">
+          <b
+            >Recruiters/Employers -
+            <a href="{% url 'detail-recruiters' %}">Post a Job</a></b
+          >
+        </p>
+        {% endif %}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-12 mx-auto">
+        <div class="card card-signin my-5">
+          <div class="card-body">
+            <h5 class="card-title text-center">
+              <b>Some Popular Search terms:</b><br />
+            </h5>
+            <hr my-2 />
+
+            <form class="form-signin">
+              <div class="form-group">
+                <a
+                  class="btn btn-outline-primary mr-2 mt-2"
+                  href="/job/?p=software&q="
+                  >Software</a
+                >
+                <a
+                  class="btn btn-outline-info mr-2 mt-2"
+                  href="/job/?p=internship&q="
+                  >Internship</a
+                >
+                <a
+                  class="btn btn-outline-danger mr-2 mt-2"
+                  href="/job/?p=product+manager&q="
+                  >Product Manager</a
+                >
+                <a
+                  class="btn btn-outline-secondary mr-2 mt-2"
+                  href="/job/?p=python&q="
+                  >Python</a
+                >
+                <a class="btn btn-outline-dark mr-2 mt-2" href="/job/?p=web&q="
+                  >Web</a
+                >
+                <a
+                  class="btn btn-outline-danger mr-2 mt-2"
+                  href="/job/?p=android&q="
+                  >Android</a
+                >
+                <a
+                  class="btn btn-outline-success mr-2 mt-2"
+                  href="/job/?p=analyst&q="
+                  >Analyst</a
+                >
+                <a
+                  class="btn btn-outline-info mr-2 mt-2"
+                  href="/job/?p=sales&q="
+                  >Sales</a
+                >
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock content %}
+</div>

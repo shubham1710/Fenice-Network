@@ -1,0 +1,119 @@
+{% extends "users/layout.html" %} {% load static %} {% block content %}
+<br /><br />
+<div style="background-color: white">
+  <div class="row">
+    <div class="col-md-6">
+      <div style="background: transparent !important" class="jumbotron">
+        <h1 class="display-4 text-center">
+          Hire the next best candidate here!
+        </h1>
+        <p class="lead text-center">
+          Hiring can be a tedious task. Let us make it easy for you!
+        </p>
+        <p class="lead text-center">
+          <a
+            class="btn btn-primary btn-lg"
+            href="{% url 'add-job' %}"
+            role="button"
+            >Hire Now!</a
+          >
+        </p>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <img
+        class="img-fluid"
+        src="https://dl.dropboxusercontent.com/s/t80cdspg3wjoquj/4565.jpg?dl=0"
+        alt="Hiring Image 2"
+      />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col md-6 border-right">
+      <div style="background: transparent !important" class="jumbotron">
+        <h1 class="display-5 text-center">
+          Easy to hire! Get started in a few simple steps!
+        </h1>
+        <p class="lead text-center">
+          We make hiring as simple as possible. No more hassles. Just sign in,
+          add necessary details about the job post and you are ready to go!
+        </p>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div style="background: transparent !important" class="jumbotron">
+        <h1 class="display-5 text-center">Unlimited job posts. For Free!</h1>
+        <p class="lead text-center">
+          Post any number of job posts you want for free. We do not charge you
+          for just posting jobs!
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col md-6 border-right">
+      <div style="background: transparent !important" class="jumbotron">
+        <h1 class="display-5 text-center">
+          Want to get results faster? Go Premium!
+        </h1>
+        <p class="lead text-center">
+          Job Posts of premium users enjoy more visibility and thus get more
+          applicants in a shorter period of time!<br /><br />All of this for a
+          small fee only!
+        </p>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div style="background: transparent !important" class="jumbotron">
+        <h1 class="display-5 text-center">
+          Get recommended candidates for your job!
+        </h1>
+        <p class="lead text-center">
+          Get candidates recommendation for each job post and make your hiring
+          much faster by directly contacting them.<br /><br /><i
+            >Available in free plan for a limited time!</i
+          >
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-10 md-8 lg-6 mx-auto">
+      <div style="background: transparent !important" class="jumbotron">
+        <h1 class="display-5 text-center">
+          Search through the candidate database!
+        </h1>
+        <p class="lead text-center">
+          Search and see resumes of every candidate on our database. Get the
+          best candidate suitable for your jobs and directly contact them
+          resulting in fast hires!<br /><br /><i
+            >Avaialable in free plan for a limited time!</i
+          >
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-10 md-8 lg-6 mx-auto">
+      <div style="background: transparent !important" class="jumbotron">
+        <h1 class="display-5 text-center">More features coming soon!</h1>
+        <p class="lead text-center">
+          We believe in making the hiring process easier. Thus, we will keep
+          adding new features as we progress and will continue to help you in
+          hiring the best talents!<br /><br />So, what are you waiting for? Get
+          the early access benefits and enjoy premium services for free for a
+          limited time!
+        </p>
+        <p class="lead text-center">
+          <a
+            class="btn btn-primary btn-lg"
+            href="{% url 'add-job' %}"
+            role="button"
+            >Post jobs now!</a
+          >
+        </p>
+      </div>
+    </div>
+  </div>
+  {% endblock %}
+</div>

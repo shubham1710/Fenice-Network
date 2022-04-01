@@ -1,0 +1,252 @@
+{% load static %} {% load pwa %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    {% progressive_web_app_meta %}
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://dl.dropboxusercontent.com/s/vqp7i2tv6uvc1gs/logofenice.jfif?dl=0"
+    />
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Lato"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://dl.dropboxusercontent.com/s/ecyb1drs5j1jyjf/styles.css?dl=0"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://dl.dropboxusercontent.com/s/xmxsoypfvfvsisb/footer.css?dl=0"
+    />
+
+    <style>
+      body {
+        font-family: "Lato";
+        font-size: 20px;
+      }
+    </style>
+
+    {% block cssfiles %}{% endblock cssfiles %}
+    <title>Fenice</title>
+  </head>
+
+  <body>
+    {% if not rec_navbar %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+      <a class="navbar-brand" href="{% url 'detail-candidates' %}">
+        <img
+          src="https://dl.dropboxusercontent.com/s/vqp7i2tv6uvc1gs/logofenice.jfif?dl=0"
+          width="30"
+          height="30"
+          class="d-inline-block align-top mr-3"
+          alt=""
+        /><b>Fenice</b>
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link {{ home_page }}" href="{% url 'home' %}"
+            >Job Search</a
+          >
+          <a
+            class="nav-item nav-link {{ profile_page }}"
+            href="{% url 'my-profile' %}"
+            >My Profile</a
+          >
+          <a
+            class="nav-item nav-link {{ intel_page }}"
+            href="{% url 'intelligent-search' %}"
+            >Get Relevant Jobs</a
+          >
+          <a
+            class="nav-item nav-link {{ account_page }}"
+            href="{% url 'account' %}"
+            >My Account</a
+          >
+          {% if user.is_authenticated %}
+          <a
+            class="nav-item nav-link btn btn-danger ml-4 mr-4 text-light"
+            href="{% url 'logout' %}"
+            >Logout</a
+          >
+          <a class="nav-item nav-link" href="{% url 'add-job' %}"
+            >Recruiters/ Employers</a
+          >
+          {% else %}
+          <a
+            class="nav-item nav-link btn btn-success ml-4 mr-4 text-light"
+            href="{% url 'login' %}"
+            >Login</a
+          >
+          <a class="nav-item nav-link" href="{% url 'detail-recruiters' %}"
+            >Recruiters/ Employers</a
+          >
+          {% endif %}
+        </div>
+      </div>
+    </nav>
+    {% else %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+      <a class="navbar-brand" href="{% url 'detail-recruiters' %}">
+        <img
+          src="https://dl.dropboxusercontent.com/s/vqp7i2tv6uvc1gs/logofenice.jfif?dl=0"
+          width="30"
+          height="30"
+          class="d-inline-block align-top mr-3"
+          alt=""
+        /><b>Fenice</b>
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a
+            class="nav-item nav-link {{ rec_home_page }}"
+            href="{% url 'detail-recruiters' %}"
+            >Home</a
+          >
+          <a
+            class="nav-item nav-link {{ add_job_page }}"
+            href="{% url 'add-job' %}"
+            >Add Job Post</a
+          >
+          <a
+            class="nav-item nav-link {{ manage_jobs_page }}"
+            href="{% url 'job-list' %}"
+            >Manage Your Job Posts</a
+          >
+          <a
+            class="nav-item nav-link {{ search_candidates_page }}"
+            href="{% url 'search-candidates' %}"
+            >Seach Candidates</a
+          >
+          {% if user.is_authenticated %}
+          <a
+            class="nav-item nav-link btn btn-danger ml-4 mr-4 text-light"
+            href="{% url 'logout' %}"
+            >Logout</a
+          >
+          {% else %}
+
+          <a
+            class="nav-item nav-link btn btn-success ml-4 mr-4 text-light"
+            href="{% url 'login' %}"
+            >Login</a
+          >
+          {% endif %}
+          <a class="nav-item nav-link" href="{% url 'home' %}"
+            >Job Seekers/Candidates</a
+          >
+        </div>
+      </div>
+    </nav>
+    {% endif %}
+    <div class="container">{% block content %}{% endblock content %}</div>
+
+    <footer>
+      <hr my-2 />
+      <div class="row">
+        <div class="col-sm-6 col-md-4 footer-navigation">
+          <h3>Fenice</h3>
+          <p class="links">
+            <a href="{% url 'detail-candidates' %}">Job Seekers</a
+            ><strong> · </strong
+            ><a href="{% url 'detail-recruiters' %}">Recruiters</a
+            ><strong> · </strong><a href="{% url 'pricing' %}">Pricing</a>
+            <strong> · </strong
+            ><a href="{% url 'terms-of-service' %}">Terms of Service</a>
+            <strong> · </strong
+            ><a href="{% url 'privacy-policy' %}">Privacy Policy</a>
+          </p>
+          <p class="company-name">
+            Fenice @ 2020<br /><small class="text-muted"
+              >All rights reserved!</small
+            ><br />
+          </p>
+        </div>
+        <div class="col-sm-6 col-md-4 footer-contacts">
+          <div>
+            <span class="fa fa-map-marker footer-contacts-icon"></span>
+            <p><span class="new-line-span">IIT BHU</span>Varanasi, India</p>
+          </div>
+
+          <div>
+            <i class="fa fa-envelope footer-contacts-icon"></i>
+            <p><a href="#" target="_blank">networkfenice@gmail.com</a></p>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-md-4 footer-about">
+          <h4>About the company</h4>
+          <p>
+            Fenice Networks mission is to make hiring easier. We aim to save
+            time for both job seekers and recruiters and to make the hiring
+            process smoother. We continue to innovate and find new solutions to
+            make hiring process simpler.
+          </p>
+          <div class="social-links social-icons">
+            <a href="#"><i class="fa fa-facebook"></i></a
+            ><a href="#"><i class="fa fa-twitter"></i></a
+            ><a href="https://www.linkedin.com/company/fenicenetwork/"
+              ><i class="fa fa-linkedin"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+      <p class="text-center" style="font-size: 12px">
+        <a href="https://www.freepik.com/vectors/"
+          >Image vectors by - www.freepik.com</a
+        >
+      </p>
+    </footer>
+
+    <!-- JS Files -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    {% block jsfiles %}{% endblock jsfiles %}
+  </body>
+</html>

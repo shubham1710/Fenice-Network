@@ -1,0 +1,77 @@
+{% extends "users/layout.html" %} {% load static %} {% block content %}
+<br /><br />
+<div style="background-color: white">
+  <div class="row">
+    <div class="col-md-6">
+      <div style="background: transparent !important" class="jumbotron">
+        <h1 class="display-4 text-center">Get your next job here!</h1>
+        <p class="lead text-center">
+          Wondering how to get a great job, we are here to help!
+        </p>
+        <p class="lead text-center">
+          <a
+            class="btn btn-primary btn-lg"
+            href="{% url 'home' %}"
+            role="button"
+            >Search for Jobs Now!</a
+          >
+        </p>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <img
+        class="img-fluid"
+        src="https://dl.dropboxusercontent.com/s/9t7rpn96uwxhm0e/2895265.jpg?dl=0"
+        alt="Hiring Image"
+      />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col md-6 border-right">
+      <div style="background: transparent !important" class="jumbotron">
+        <h1 class="display-5 text-center">Always Free!</h1>
+        <p class="lead text-center">
+          No more doing payments to get the perfect job! We offer free lifetime
+          service to job seekers!
+        </p>
+        <p class="lead text-center">
+          Search through the wide variety of jobs and choose one that suits your
+          needs, all for free!
+        </p>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div style="background: transparent !important" class="jumbotron">
+        <h1 class="display-5 text-center">Get Relevant jobs!</h1>
+        <p class="lead text-center">
+          Get jobs that suits your needs directly! No need to search through
+          various jobs and deal with many filters.
+        </p>
+        <p class="lead text-center">
+          Just complete your profile and get relevant jobs based on your skills!
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-10 md-8 lg-6 mx-auto">
+      <div style="background: transparent !important" class="jumbotron">
+        <h1 class="display-5 text-center">More to come soon!</h1>
+        <p class="lead text-center">
+          Many more features coming soon to enhance your job search experience
+          and take it to a whole new level!
+          <br />What are you waiting for? Get started today!
+        </p>
+        <p class="lead text-center">
+          <a
+            class="btn btn-primary btn-lg"
+            href="{% url 'home' %}"
+            role="button"
+            >Start the Job Search!</a
+          >
+        </p>
+      </div>
+    </div>
+  </div>
+  {% endblock %}
+</div>

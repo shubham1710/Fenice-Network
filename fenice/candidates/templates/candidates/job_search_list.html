@@ -1,0 +1,148 @@
+{% extends "users/layout.html" %} {% load static %} {% block content %}
+
+<div>
+  <form
+    class="form-signin mt-4"
+    action="{% url 'job-search-list' %}"
+    method="get"
+  >
+    <div class="row">
+      <div class="col-md-6">
+        <input
+          name="p"
+          type="text"
+          class="form-control"
+          placeholder="Enter Job Title, Skills, Type or Company"
+        /><br />
+      </div>
+      <div class="col-md-6">
+        <input
+          name="q"
+          type="text"
+          class="form-control"
+          placeholder="Enter Job Location"
+        /><br />
+      </div>
+    </div>
+    <div class="form-group">
+      <button class="btn btn-lg btn-primary btn-block" type="submit">
+        Search Jobs
+      </button>
+    </div>
+  </form>
+  <hr my-2 />
+  {%if jobs %}
+  <div class="row">
+    {% for job in jobs %}
+    <div class="col-md-6">
+      <div class="card card-signin my-2">
+        <span class="ml-3 mt-3">
+          <a href="{% url 'job-detail' job.slug %}"
+            ><h4 class="text-dark">
+              <b>{{job.title}} ({{job.job_type}})</b>
+            </h4></a
+          >
+          <p style="font-size: 17px">{{job.company}}<br />{{job.location}}</p>
+          <p style="font-size: 15px">
+            {{job.description|truncatewords:30}} -
+            <a href="{% url 'job-detail' job.slug %}">Read More</a>
+          </p>
+        </span>
+        <div class="card-footer">
+          <span style="font-size: 14px"
+            >Posted on {{job.date_posted|date:"F d, Y"}}</span
+          >
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+<br />
+<div class="pagination">
+  <span class="step-links">
+    {% if jobs.has_previous %}
+    <a
+      class="btn btn-info"
+      href="?page=1{% if request.GET.p %}&p={{ request.GET.p }}{% endif %}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"
+      >&laquo; First</a
+    >
+    <a
+      class="btn btn-danger"
+      href="?page={{ jobs.previous_page_number }}{% if request.GET.p %}&p={{ request.GET.p }}{% endif %}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"
+      >Prev</a
+    >
+    {% endif %}
+    <span class="current">
+      Page {{ jobs.number }} of {{ jobs.paginator.num_pages }}.
+    </span>
+    {% if jobs.has_next %}
+    <a
+      class="btn btn-success"
+      href="?page={{ jobs.next_page_number }}{% if request.GET.p %}&p={{ request.GET.p }}{% endif %}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"
+      >Next</a
+    >
+    <a
+      class="btn btn-primary"
+      href="?page={{ jobs.paginator.num_pages }}{% if request.GET.p %}&p={{ request.GET.p }}{% endif %}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"
+      >Last &raquo;</a
+    >
+    {% endif %}
+  </span>
+</div>
+
+{% else %}
+<div class="row">
+  <div class="col-sm-12 col-md-12 col-lg-12 mx-auto">
+    <div class="card card-signin my-5">
+      <div class="card-body">
+        <h5 class="card-title text-center">
+          <b>No relevant jobs found for this search term!</b><br />
+        </h5>
+        <hr my-2 />
+        <h5 class="card-title text-center"><b>Search instead for:</b><br /></h5>
+        <form class="form-signin">
+          <div class="form-group">
+            <a
+              class="btn btn-outline-primary mr-2 mt-2"
+              href="/job/?p=software&q="
+              >Software</a
+            >
+            <a
+              class="btn btn-outline-info mr-2 mt-2"
+              href="/job/?p=internship&q="
+              >Internship</a
+            >
+            <a
+              class="btn btn-outline-danger mr-2 mt-2"
+              href="/job/?p=product+manager&q="
+              >Product Manager</a
+            >
+            <a
+              class="btn btn-outline-secondary mr-2 mt-2"
+              href="/job/?p=python&q="
+              >Python</a
+            >
+            <a class="btn btn-outline-dark mr-2 mt-2" href="/job/?p=web&q="
+              >Web</a
+            >
+            <a
+              class="btn btn-outline-danger mr-2 mt-2"
+              href="/job/?p=android&q="
+              >Android</a
+            >
+            <a
+              class="btn btn-outline-success mr-2 mt-2"
+              href="/job/?p=analyst&q="
+              >Analyst</a
+            >
+            <a class="btn btn-outline-info mr-2 mt-2" href="/job/?p=sales&q="
+              >Sales</a
+            >
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %} {% endblock content %}
