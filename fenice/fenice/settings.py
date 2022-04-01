@@ -1,19 +1,22 @@
 from pathlib import Path
 import os
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ')f#s-pzaa09l8)=5pt1pw_vsi=*@o6hfng@5*u8)@xqjzkx6gk'
+SECRET_KEY = os.environ.get('FENICE_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+]
 
 
 # Application definition
@@ -39,6 +42,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.linkedin_oauth2',
     'allauth.socialaccount.providers.github',
     'django_cleanup.apps.CleanupConfig',
+    'pwa',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -76,16 +81,27 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'fenice.wsgi.application'
 
-
+SITE_ID = 2
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
+# if (os.environ.get('DJANGO_DEV') == 'Tru'):
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+# else:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#             'NAME': 'defaultdb',
+#             'USER': 'doadmin',
+#             'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
+#             'HOST': 'fenice-database-do-user-8082982-0.b.db.ondigitalocean.com',
+#             'PORT': '25060',
+#         }
+#     }
 
 
 # Password validation
@@ -124,11 +140,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_URL = '/static/'
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
@@ -170,9 +181,21 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 SOCIALACCOUNT_QUERY_EMAIL = True
 
-# DEFAULT_FILE_STORAGE = 'django_gcloud_storage.DjangoGCloudStorage'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-# GCS_PROJECT = os.environ.get('GCS_PROJECT_FENICE')
-# GCS_BUCKET = os.environ.get('GCS_BUCKET_FENICE')
-# GCS_CREDENTIALS_FILE_PATH = os.path.join(BASE_DIR, "my-key.json")
-# GCS_USE_UNSIGNED_URLS = True
+AWS_ACCESS_KEY_ID = os.environ.get('FENICE_AWS_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('FENICE_AWS_SECRET')
+AWS_S3_SIGNATURE_VERSION = 's3v4'
+AWS_STORAGE_BUCKET_NAME = 'fenice'
+AWS_S3_ENDPOINT_URL = 'https://fenice.ams3.digitaloceanspaces.com'
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+
+AWS_DEFAULT_ACL = 'public-read'
+
+STATIC_URL = '{}/{}/'.format(AWS_S3_ENDPOINT_URL, 'static')
+STATIC_ROOT = 'static/'
+
+MEDIA_URL = '{}/{}/'.format(AWS_S3_ENDPOINT_URL, 'media')
+MEDIA_ROOT = 'media/'

@@ -3,6 +3,11 @@
 <div>
   <h3 class="text-center"><b>Your Job Posts</b></h3>
   <hr my-2 />
+  {% if not jobs %}
+  <h4 class="text-center">
+    Please <a href="{% url 'add-job' %}">add a job</a> first!
+  </h4>
+  {% else %}
   <div class="row">
     {% for job in jobs %}
     <div class="col-md-6">
@@ -48,5 +53,6 @@
     >
     {% endif %}
   </span>
+  {% endif %}
 </div>
 {% endblock content %}

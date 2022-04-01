@@ -19,6 +19,7 @@ class Profile(models.Model):
         User, on_delete=models.CASCADE, primary_key=True, related_name='profile')
     full_name = models.CharField(max_length=200, null=True, blank=True)
     country = CountryField(null=True, blank=True)
+    location = models.CharField(max_length=255, null=True, blank=True)
     resume = models.FileField(upload_to='resumes', null=True, blank=True)
     grad_year = models.IntegerField(blank=True)
     looking_for = models.CharField(
@@ -30,6 +31,9 @@ class Profile(models.Model):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.user.username
 
 
 class Skill(models.Model):
@@ -45,6 +49,9 @@ class SavedJobs(models.Model):
         User, related_name='saved', on_delete=models.CASCADE)
     date_posted = models.DateTimeField(default=timezone.now)
 
+    def __str__(self):
+        return self.job.title
+
 
 class AppliedJobs(models.Model):
     job = models.ForeignKey(
@@ -52,3 +59,6 @@ class AppliedJobs(models.Model):
     user = models.ForeignKey(
         User, related_name='applied_user', on_delete=models.CASCADE)
     date_posted = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.job.title

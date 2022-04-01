@@ -1,9 +1,10 @@
-{% load static %}
+{% load static %} {% load pwa %}
 <!DOCTYPE html>
 <html>
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
+    {% progressive_web_app_meta %}
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
@@ -11,12 +12,16 @@
     <link
       rel="icon"
       type="image/png"
-      href="https://storage.googleapis.com/fenice/logofenice.jfif"
+      href="https://dl.dropboxusercontent.com/s/vqp7i2tv6uvc1gs/logofenice.jfif?dl=0"
     />
     <!-- Bootstrap CSS -->
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
     />
     <link
       rel="stylesheet"
@@ -30,7 +35,12 @@
     <link
       rel="stylesheet"
       type="text/css"
-      href="https://storage.googleapis.com/bytewalk/styles.css"
+      href="https://dl.dropboxusercontent.com/s/ecyb1drs5j1jyjf/styles.css?dl=0"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://dl.dropboxusercontent.com/s/xmxsoypfvfvsisb/footer.css?dl=0"
     />
 
     <style>
@@ -39,6 +49,7 @@
         font-size: 20px;
       }
     </style>
+
     {% block cssfiles %}{% endblock cssfiles %}
     <title>Fenice</title>
   </head>
@@ -48,7 +59,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
       <a class="navbar-brand" href="{% url 'detail-candidates' %}">
         <img
-          src="https://storage.googleapis.com/fenice/logofenice.jfif"
+          src="https://dl.dropboxusercontent.com/s/vqp7i2tv6uvc1gs/logofenice.jfif?dl=0"
           width="30"
           height="30"
           class="d-inline-block align-top mr-3"
@@ -79,7 +90,7 @@
           <a
             class="nav-item nav-link {{ intel_page }}"
             href="{% url 'intelligent-search' %}"
-            >Relevant Job Search</a
+            >Get Relevant Jobs</a
           >
           <a
             class="nav-item nav-link {{ account_page }}"
@@ -112,7 +123,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
       <a class="navbar-brand" href="{% url 'detail-recruiters' %}">
         <img
-          src="https://storage.googleapis.com/fenice/logofenice.jfif"
+          src="https://dl.dropboxusercontent.com/s/vqp7i2tv6uvc1gs/logofenice.jfif?dl=0"
           width="30"
           height="30"
           class="d-inline-block align-top mr-3"
@@ -175,12 +186,61 @@
     {% endif %}
     <div class="container">{% block content %}{% endblock content %}</div>
 
-    <footer class="page-footer font-small black">
-      <div class="footer-copyright text-center py-3">
-        Fenice © 2020 <br /><small class="text-muted"
-          >All rights reserved!</small
-        >
+    <footer>
+      <hr my-2 />
+      <div class="row">
+        <div class="col-sm-6 col-md-4 footer-navigation">
+          <h3>Fenice</h3>
+          <p class="links">
+            <a href="{% url 'detail-candidates' %}">Job Seekers</a
+            ><strong> · </strong
+            ><a href="{% url 'detail-recruiters' %}">Recruiters</a
+            ><strong> · </strong><a href="{% url 'pricing' %}">Pricing</a>
+            <strong> · </strong
+            ><a href="{% url 'terms-of-service' %}">Terms of Service</a>
+            <strong> · </strong
+            ><a href="{% url 'privacy-policy' %}">Privacy Policy</a>
+          </p>
+          <p class="company-name">
+            Fenice @ 2020<br /><small class="text-muted"
+              >All rights reserved!</small
+            ><br />
+          </p>
+        </div>
+        <div class="col-sm-6 col-md-4 footer-contacts">
+          <div>
+            <span class="fa fa-map-marker footer-contacts-icon"></span>
+            <p><span class="new-line-span">IIT BHU</span>Varanasi, India</p>
+          </div>
+
+          <div>
+            <i class="fa fa-envelope footer-contacts-icon"></i>
+            <p><a href="#" target="_blank">networkfenice@gmail.com</a></p>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-md-4 footer-about">
+          <h4>About the company</h4>
+          <p>
+            Fenice Networks mission is to make hiring easier. We aim to save
+            time for both job seekers and recruiters and to make the hiring
+            process smoother. We continue to innovate and find new solutions to
+            make hiring process simpler.
+          </p>
+          <div class="social-links social-icons">
+            <a href="#"><i class="fa fa-facebook"></i></a
+            ><a href="#"><i class="fa fa-twitter"></i></a
+            ><a href="https://www.linkedin.com/company/fenicenetwork/"
+              ><i class="fa fa-linkedin"></i
+            ></a>
+          </div>
+        </div>
       </div>
+      <p class="text-center" style="font-size: 12px">
+        <a href="https://www.freepik.com/vectors/"
+          >Image vectors by - www.freepik.com</a
+        >
+      </p>
     </footer>
 
     <!-- JS Files -->
