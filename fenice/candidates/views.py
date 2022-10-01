@@ -20,7 +20,7 @@ def home(request):
     }
     return render(request, 'candidates/home.html', context)
 
-
+# view to display job search list
 def job_search_list(request):
     query = request.GET.get('p')
     loc = request.GET.get('q')
@@ -65,7 +65,7 @@ def job_search_list(request):
     }
     return render(request, 'candidates/job_search_list.html', context)
 
-
+# view to display details of a particular job
 def job_detail(request, slug):
     job = get_object_or_404(Job, slug=slug)
     apply_button = 0
@@ -100,14 +100,14 @@ def job_detail(request, slug):
 
     return render(request, 'candidates/job_detail.html', {'job': job, 'profile': profile, 'apply_button': apply_button, 'save_button': save_button, 'relevant_jobs': relevant_jobs, 'candidate_navbar': 1})
 
-
+# view to display saved jobs for that user
 @login_required
 def saved_jobs(request):
     jobs = SavedJobs.objects.filter(
         user=request.user).order_by('-date_posted')
     return render(request, 'candidates/saved_jobs.html', {'jobs': jobs, 'candidate_navbar': 1})
 
-
+# view to display applied jobs for that user
 @login_required
 def applied_jobs(request):
     jobs = AppliedJobs.objects.filter(
@@ -123,7 +123,7 @@ def applied_jobs(request):
     zipped = zip(jobs, statuses)
     return render(request, 'candidates/applied_jobs.html', {'zipped': zipped, 'candidate_navbar': 1})
 
-
+# view which handles display of relevant jobs according to skills of the users
 @login_required
 def intelligent_search(request):
     relevant_jobs = []
@@ -160,7 +160,7 @@ def intelligent_search(request):
     }
     return render(request, 'candidates/intelligent_search.html', context)
 
-
+# view to see the profile page for the user
 @login_required
 def my_profile(request):
     you = request.user
@@ -184,7 +184,7 @@ def my_profile(request):
     }
     return render(request, 'candidates/profile.html', context)
 
-
+# view to edit the user profile
 @login_required
 def edit_profile(request):
     you = request.user
